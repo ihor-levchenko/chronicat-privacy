@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
-<title>Privacy Policy — Chronicat: Cat Diary &amp; AI</title>
+<title>Privacy Policy — Chronicat: Cat Health Tracker</title>
 <style>
   :root { --ink:#2b2622; --muted:#6b625a; --accent:#dd6840; --line:#ece3d6; --bg:#fbf7f0; }
   * { box-sizing:border-box; }
@@ -29,9 +29,9 @@
 <body>
 <main class="wrap">
   <h1>Privacy Policy</h1>
-  <p class="updated">Chronicat: Cat Diary &amp; AI · Last updated: 24 August 2026</p>
+  <p class="updated">Chronicat: Cat Health Tracker · Last updated: 8 October 2026</p>
 
-  <p class="lead">This Privacy Policy explains how <strong>Pixoro Apps</strong> ("we", "us", "our") collects, uses, and protects information when you use the <strong>Chronicat: Cat Diary &amp; AI</strong> mobile application (the "App"). By downloading or using the App, you agree to the practices described in this Policy. If you do not agree, please do not use the App.</p>
+  <p class="lead">This Privacy Policy explains how <strong>Pixoro Apps</strong> ("we", "us", "our") collects, uses, and protects information when you use the <strong>Chronicat: Cat Health Tracker</strong> mobile application for Android and iOS (the "App"). By downloading or using the App, you agree to the practices described in this Policy. If you do not agree, please do not use the App.</p>
 
   <h2>1. Who We Are</h2>
   <p>The App is developed and operated by <strong>Pixoro Apps</strong>, located in <strong>Ukraine</strong>.</p>
@@ -39,51 +39,89 @@
 
   <h2>2. Summary</h2>
   <ul>
-    <li>Chronicat is a diary and AI assistant that helps you track your cat's life (feeding, weight, medications, vet visits, notes, and other events).</li>
-    <li><strong>Your cat profiles and diary events are stored in the cloud</strong>, using our backend provider Supabase, so they stay backed up and available across your devices. <strong>Your AI chat history is stored locally on your device only</strong> and is not synced to the cloud.</li>
+    <li>Chronicat is a diary and AI assistant that helps you track your cat's life (feeding, weight, medications, vet visits, notes, and other events). It is available on <strong>Google Play</strong> and the <strong>Apple App Store</strong>.</li>
+    <li><strong>Your account, cat profiles, cat photos and diary events are stored in the cloud</strong>, using our backend provider Supabase, so they stay backed up and available across your devices. <strong>Your AI chat history is stored locally on your device only</strong> and is not synced to the cloud.</li>
     <li>You can optionally invite another person to share a cat with you (for example, a family member). Anyone you share a cat with can view, add, and edit that cat's data — see Section 5.</li>
-    <li>When you use the AI assistant, the content of your questions and relevant cat data are sent to a third-party AI provider to generate a response.</li>
-    <li>Subscription purchases are processed by the app store (Google Play), not by us. We do not receive or store your payment card details.</li>
+    <li>The AI assistant (part of Chronicat Plus) uses <strong>OpenAI</strong> to generate replies. <strong>Nothing is sent to OpenAI for the assistant until you tap «Allow»</strong> on the in-app permission screen, and you can withdraw that permission at any time in Settings — see Section 3.4.</li>
+    <li>If you report an AI reply, we receive that reply and the question before it (text only) so we can review it — see Section 3.5.</li>
+    <li>Usage analytics and crash reports are <strong>linked to your account ID</strong> (not your name or email). You can turn usage analytics off in Settings — see Section 3.7.</li>
+    <li>Subscription purchases are processed by <strong>Apple (App Store)</strong> or <strong>Google (Google Play)</strong>, not by us. We do not receive or store your payment card details.</li>
   </ul>
 
   <h2>3. Information We Collect</h2>
-  <h3>3.1 Information you provide</h3>
+  <h3>3.1 Account information</h3>
   <ul>
-    <li><strong>Cat profile data</strong>: name, photo, breed, date of birth, sex, neuter/spay status, microchip number, allergies, chronic conditions, and similar details you choose to enter.</li>
-    <li><strong>Event and diary data</strong>: feeding, water, play/activity, weight, vet visits, medications, vaccinations, parasite treatments, litter/toileting, symptoms, grooming, behavioral notes, photos, and free-text notes you create.</li>
-    <li><strong>AI chat history</strong>: the questions you ask the AI assistant and the responses you receive.</li>
+    <li><strong>Email sign-up:</strong> your email address, the name you enter, and your password. Passwords are handled by our authentication provider (Supabase Auth); we cannot see them.</li>
+    <li><strong>Continue with Google:</strong> Google confirms your identity and shares your basic profile (such as your name and email address) with us.</li>
+    <li><strong>Sign in with Apple</strong> (iOS): Apple confirms your identity and shares your name (if you choose to share it) and an email address, which can be an Apple private relay address.</li>
   </ul>
-  <p><strong>Cat profile data and event/diary data</strong> are stored on our cloud backend provider, Supabase, so they are backed up and available across your devices — see Section 5 for details. <strong>Your AI chat history is stored locally on your device only</strong> and is not transmitted to or accessible by us, except as described in Section 3.3 (AI processing).</p>
+  <p>Your account is identified by a random account ID that our authentication system creates. This ID is what links your data across the services described below.</p>
 
-  <h3>3.2 Subscription and purchase information</h3>
-  <p>When you purchase a subscription or start a free trial, the transaction is handled by the applicable app store (<strong>Google Play</strong>). We may receive limited, non-sensitive information from the store to confirm your subscription status (for example, a purchase token or subscription state). <strong>We do not collect or store your full payment card number or billing address</strong> — these are handled entirely by the app store.</p>
-
-  <h3>3.3 Information processed by the AI assistant</h3>
-  <p>When you use the AI assistant, the content of your message and relevant context (such as selected cat profile details and recent events) is transmitted to a third-party AI provider, <strong>OpenAI, L.L.C.</strong> ("OpenAI"), solely to generate a response. This processing is necessary to provide the AI feature. Please review the AI provider's own privacy terms for how they handle data submitted through their API.</p>
-
-  <h3>3.4 Technical and usage information</h3>
-  <p>We (or our service providers) may automatically collect limited technical data to operate and improve the App, such as:</p>
+  <h3>3.2 Information you provide</h3>
   <ul>
-    <li>Device type, operating system version, and app version.</li>
-    <li>Crash reports and diagnostic logs.</li>
-    <li>Anonymous or aggregated usage analytics (for example, which features are used).</li>
+    <li><strong>Cat profile data</strong>: name, photo, breed, date of birth, sex, neuter/spay status, microchip number, allergies, chronic conditions, usual vet clinic, notes, and similar details you choose to enter.</li>
+    <li><strong>Event and diary data</strong>: feeding, water, play/activity, weight, vet visits, medications, vaccinations, parasite treatments, litter/toileting, symptoms, grooming, mood, behavioral notes, and free-text notes you create.</li>
+    <li><strong>Care reminders</strong>: the reminder schedules you set (stored on your device).</li>
+    <li><strong>AI chat history</strong>: the questions you ask the AI assistant, photos you attach, and the responses you receive (stored on your device).</li>
   </ul>
-  <p>This data does not identify you personally and is used to maintain stability and improve the product.</p>
+  <p><strong>Cat profile data, cat photos and event/diary data</strong> are stored on our cloud backend provider, Supabase, so they are backed up and available across your devices — see Section 5 for details. <strong>Your AI chat history is stored locally on your device only</strong> and is not stored on our servers, except for a reply you choose to report (Section 3.5). Signing out or deleting your account removes it from the device.</p>
+  <p>Health reports (PDF) you create in the App are generated on your device; they are shared only if you choose to share them.</p>
+
+  <h3>3.3 Subscription and purchase information</h3>
+  <p>When you purchase a subscription or start a free trial, the transaction is handled by the app store you use: the <strong>Apple App Store</strong> or <strong>Google Play</strong>. We use <strong>RevenueCat</strong> to manage subscriptions. RevenueCat receives your account ID, the purchase and subscription details the store provides (for example, the product, purchase and expiry dates, and whether a trial is active), and uses them to tell the App whether Chronicat Plus is active. <strong>We do not collect or store your full payment card number or billing address</strong> — these are handled entirely by Apple or Google.</p>
+
+  <h3>3.4 AI assistant (Ask AI, part of Chronicat Plus)</h3>
+  <p>Replies in the AI assistant are generated by <strong>OpenAI, L.L.C.</strong> ("OpenAI"). The App sends each message to our own server (a Supabase Edge Function), which checks that you are signed in and have an active Chronicat Plus subscription, and then forwards the request to OpenAI's API. Our server passes the conversation through; it does not save it.</p>
+  <p><strong>Your permission comes first.</strong> Before the assistant sends anything, the App shows a screen that names OpenAI and lists what will be shared, and asks for your permission. Nothing is sent until you tap <strong>«Allow»</strong>. If you choose «Not now», the assistant stays paused and nothing is sent. Your choice is saved on your device for your account. You can withdraw your permission at any time in <strong>Settings → Legal → "Share data with OpenAI"</strong>; after that nothing more is sent to OpenAI for the assistant.</p>
+  <p>When you have allowed it, each message you send includes:</p>
+  <ul>
+    <li><strong>Your messages and any photos you attach</strong>, together with the earlier messages of the same chat so the assistant can follow the conversation.</li>
+    <li><strong>Your cat's profile</strong>: name, sex, breed, date of birth, neuter/spay status, allergies, chronic conditions, usual vet clinic, and your notes about the cat.</li>
+    <li><strong>Recent journal entries with their details and notes</strong> (for example food, weight, medication names and doses, symptoms, vet visits), including entries added by people you share the cat with; upcoming vet visits; and the <strong>care reminders</strong> you have set (type, name, and schedule).</li>
+    <li>The current date and time on your device, so the assistant can understand words like "yesterday" or "this morning".</li>
+  </ul>
+  <p>Your email address, your name and your account ID are <strong>not</strong> sent to OpenAI. If a reply records a diary entry for you (it is shown under the reply), that entry is saved to your cat's diary like any other entry, and you can edit or delete it.</p>
+  <p><strong>How OpenAI handles this data:</strong> according to OpenAI's stated API data policy, data sent through its API is not used to train OpenAI's models by default, and API inputs and outputs are retained for up to 30 days for abuse monitoring, unless longer retention is required by law. See OpenAI's <a href="https://developers.openai.com/api/docs/guides/your-data" target="_blank" rel="noopener">API data usage page</a> and <a href="https://openai.com/policies/" target="_blank" rel="noopener">policies</a>.</p>
+
+  <h3>3.5 Reports on AI replies</h3>
+  <p>You can report any AI reply from inside the App (for example, if it seems harmful, offensive or wrong). When you send a report, we receive and store, in our Supabase database:</p>
+  <ul>
+    <li>the text of the reply, and the question you asked just before it — <strong>text only, no photos</strong> (we only note whether the question had a photo);</li>
+    <li>the reason you chose, and which types of diary entries the reply logged (for example "feeding"), without their values;</li>
+    <li>when the reply was given, internal IDs of the message and the chat, the app version, the platform (Android or iOS) and the app language.</li>
+  </ul>
+  <p>The report is linked to your account. We use reports <strong>only to review the reply and improve the assistant's safety</strong>. Other users cannot see them. We keep a report for up to 12 months, and it is deleted with your account if you delete it sooner.</p>
+
+  <h3>3.6 Cat name forms (Ukrainian)</h3>
+  <p>When the App's language is Ukrainian, it shows your cat's name in the correct grammatical forms (for example «про Барсика»). To get these forms, the App sends <strong>only the cat's name and sex</strong> through our server to OpenAI. This is separate from the AI assistant and does not include any other data; the result is saved on your device. It is not used for other languages.</p>
+
+  <h3>3.7 Analytics, crash reports and technical data</h3>
+  <p>To understand how the App is used and to fix problems, we use <strong>Firebase Analytics</strong> and <strong>Firebase Crashlytics</strong> (Google) and <strong>Amplitude</strong>. They receive:</p>
+  <ul>
+    <li>events about how features are used (for example, that an entry of a certain type was logged, that an AI message was sent with or without a photo, or that a subscription was purchased, with its plan and price). These events <strong>do not contain</strong> the text of your notes, your AI messages, or your cats' names;</li>
+    <li>a few properties of your use of the App: whether you have Chronicat Plus, how many cats you have, weight unit, theme, whether reminders are on, and the app language;</li>
+    <li>device and app information collected by these services (such as device model, operating system and app version);</li>
+    <li>crash reports and diagnostic logs (Crashlytics).</li>
+  </ul>
+  <p><strong>This data is not anonymous.</strong> When you sign in, the App sets your account ID as the user ID in Firebase Analytics, Amplitude and Crashlytics, so analytics and crash reports are linked to your account (your name and email are not sent to them). When usage analytics is on, the App also gives RevenueCat its Firebase app-instance ID, so subscription events can be matched with analytics. Signing out clears the user ID on the device.</p>
+  <p><strong>Your choice:</strong> you can turn off usage analytics at any time with the <strong>"Usage analytics"</strong> switch in <strong>Settings → Legal</strong>. This stops Firebase Analytics and Amplitude from collecting data and removes the analytics link stored with RevenueCat. On iOS the switch also turns off crash reports; on Android, crash reports are still sent so that we can find and fix crashes.</p>
+  <p>We also use <strong>Firebase Remote Config</strong> (Google) to adjust a few settings without an app update, such as the minimum supported app version and when to ask for a rating. To deliver them, it receives technical data such as an app-instance identifier and app version.</p>
 
   <h2>4. How We Use Information</h2>
   <p>We use information to:</p>
   <ul>
-    <li>Provide the core diary and tracking features of the App.</li>
-    <li>Provide AI assistant responses based on the data you choose to share with it.</li>
-    <li>Process and validate subscriptions and free trials (via the app store).</li>
-    <li>Send reminders and notifications you enable (for example, medication or vaccination reminders).</li>
-    <li>Diagnose crashes, fix bugs, and improve performance and features.</li>
+    <li>Provide your account and the core diary and tracking features of the App, including cloud backup, sync, and cat sharing.</li>
+    <li>Provide AI assistant responses, only after you have given permission in the App.</li>
+    <li>Review AI replies you report and improve the assistant's safety.</li>
+    <li>Process and validate subscriptions and free trials (via Apple, Google and RevenueCat).</li>
+    <li>Send reminders and notifications you enable (for example, medication or vaccination reminders). Reminders are scheduled on your device.</li>
+    <li>Understand how the App is used, diagnose crashes, fix bugs, and improve performance and features.</li>
     <li>Comply with legal obligations and enforce our Terms.</li>
   </ul>
   <p>We do <strong>not</strong> sell your personal information, and we do <strong>not</strong> use your cat's health data for advertising.</p>
 
   <h2>5. Cloud Storage, Sync, and Sharing</h2>
-  <p>Your cat profiles and diary events are stored and synced using a third-party backend provider, <strong>Supabase</strong> (operated by Supabase, Inc.), so they are backed up and available whenever you sign in — including on a new or different device. This happens automatically as part of using the App; there is no local-only mode for this data.</p>
+  <p>Your cat profiles, cat photos and diary events are stored and synced using a third-party backend provider, <strong>Supabase</strong> (operated by Supabase, Inc.), so they are backed up and available whenever you sign in — including on a new or different device. This happens automatically as part of using the App; there is no local-only mode for this data. Cat photos are kept in private storage that is only reachable by the cat's members.</p>
   <h3>5.1 Sharing a cat with another user</h3>
   <p>You may choose to invite another person (for example, a family member or co-caregiver) to share a cat with you, by generating an invite code or link inside the App. If they accept:</p>
   <ul>
@@ -92,16 +130,19 @@
     <li>You can see who else has access to a shared cat, and remove their access, from within the App.</li>
     <li>Sharing a cat is entirely your choice — a cat is private to you unless and until you invite someone to it.</li>
   </ul>
+  <p>If a person you share a cat with uses the AI assistant, that cat's profile and recent entries (including the ones you added) are sent to OpenAI as described in Section 3.4, under their permission.</p>
   <h3>5.2 What this means if you delete your account</h3>
   <p>If you created a cat that is shared with other users and you delete your account, that cat and its full event history are deleted for everyone it was shared with, not just for you. If you are a co-owner (not the creator) of a shared cat and you delete your account, the cat and events logged by other co-owners remain, but the events you personally logged are removed along with your account. See our <a href="delete-account.html">account deletion page</a> for details.</p>
 
-  <h2>6. How We Share Information</h2>
-  <p>We share information only as described here:</p>
+  <h2>6. Who Receives Your Information</h2>
+  <p>We share information only with the service providers below, and only for the purposes described:</p>
   <ul>
-    <li><strong>App stores (Google Play):</strong> to process subscriptions, trials, and renewals.</li>
-    <li><strong>AI provider (OpenAI):</strong> to generate assistant responses, as described in Section 3.3.</li>
-    <li><strong>Analytics and crash-reporting providers:</strong> to maintain and improve the App.</li>
-    <li><strong>Cloud backend (Supabase):</strong> to store and sync your cat and event data, as described in Section 5.</li>
+    <li><strong>Supabase</strong> (Supabase, Inc.) — our backend: sign-in, the database for your account, cats, diary events and sharing, storage for cat photos, AI reports (Section 3.5), and the server functions that forward AI requests, check your subscription, handle invites and delete accounts.</li>
+    <li><strong>OpenAI</strong> (OpenAI, L.L.C.) — generates AI assistant replies from the data listed in Section 3.4, only after you allow it; and, for the Ukrainian interface, your cat's grammatical name forms from its name and sex (Section 3.6).</li>
+    <li><strong>Apple (App Store) and Google (Google Play)</strong> — process subscriptions, trials, renewals and payments. On Android, Google Play also shows in-app update and rating prompts.</li>
+    <li><strong>RevenueCat</strong> (RevenueCat, Inc.) — manages subscription status, linked to your account ID, as described in Section 3.3; our server asks RevenueCat whether your account has an active Chronicat Plus subscription before forwarding an AI request.</li>
+    <li><strong>Google Firebase</strong> (Analytics, Crashlytics, Remote Config) and <strong>Amplitude</strong> (Amplitude, Inc.) — usage analytics, crash reports and remote settings, linked to your account ID as described in Section 3.7.</li>
+    <li><strong>Google Sign-In</strong> and <strong>Sign in with Apple</strong> — only if you choose to sign in with them, to confirm your identity (Section 3.1).</li>
     <li><strong>Other users you invite (sharing):</strong> if you invite someone to share a cat with you, that cat's profile and event history become visible and editable by them, as described in Section 5.1.</li>
     <li><strong>Legal reasons:</strong> if required by law, regulation, legal process, or to protect the rights, safety, or property of users or others.</li>
     <li><strong>Business transfers:</strong> if we are involved in a merger, acquisition, or sale of assets, information may be transferred as part of that transaction, subject to this Policy.</li>
@@ -110,16 +151,18 @@
 
   <h2>7. Data Retention</h2>
   <ul>
-    <li><strong>Cat profiles and event data</strong> are retained on our cloud backend until you delete the individual cat/event, delete your account, or (for a shared cat) the cat's creator deletes their account. Uninstalling the App does not delete this data, since it is stored in the cloud, not only on your device.</li>
-    <li><strong>AI chat history</strong> remains on your device until you delete it or uninstall the App. Uninstalling the App will typically remove it; deleted data may not be recoverable.</li>
-    <li><strong>Subscription records</strong> are retained by the app store according to its policies.</li>
-    <li><strong>AI chat content</strong> submitted to the AI provider is handled according to that provider's retention terms.</li>
+    <li><strong>Account, cat profiles, cat photos and event data</strong> are retained on our cloud backend until you delete the individual cat/event, delete your account, or (for a shared cat) the cat's creator deletes their account. Uninstalling the App does not delete this data, since it is stored in the cloud, not only on your device.</li>
+    <li><strong>AI chat history</strong> remains on your device until you delete the chat, sign out, delete your account, or uninstall the App; deleted data may not be recoverable.</li>
+    <li><strong>Data sent to OpenAI</strong> is handled under OpenAI's terms; per its stated API policy, it is retained for up to 30 days for abuse monitoring unless longer retention is required by law (Section 3.4).</li>
+    <li><strong>Reports on AI replies</strong> are kept for up to 12 months, and are deleted with your account.</li>
+    <li><strong>Analytics and crash data</strong> are kept by Google and Amplitude according to their retention settings.</li>
+    <li><strong>Subscription records:</strong> your RevenueCat customer record is deleted when you delete your account; Apple and Google keep their own purchase records according to their policies.</li>
   </ul>
 
   <h2>8. Security</h2>
-  <p>We take reasonable technical and organizational measures to protect your information. Your cat and event data is stored on Supabase's infrastructure and protected by access controls that restrict it to your account and anyone you explicitly share a cat with. Your AI chat history is stored only on your device, so its security also depends on the security of your device (for example, device lock, encryption, and OS updates). No method of storage or transmission is completely secure, and we cannot guarantee absolute security.</p>
+  <p>We take reasonable technical and organizational measures to protect your information. The App connects to our services over encrypted HTTPS connections. Your cat and event data is stored on Supabase's infrastructure and protected by access controls that restrict it to your account and anyone you explicitly share a cat with. AI reports can be added by the App but cannot be read back by any user — only we can read them. The OpenAI API key is kept on our server and is never shipped in the App. Your AI chat history is stored only on your device, so its security also depends on the security of your device (for example, device lock, encryption, and OS updates). No method of storage or transmission is completely secure, and we cannot guarantee absolute security.</p>
 
-  <h2>9. Your Rights</h2>
+  <h2>9. Your Rights and Choices</h2>
   <p>Depending on your location, you may have rights regarding your personal data, including the right to:</p>
   <ul>
     <li>Access, correct, or delete your data.</li>
@@ -128,18 +171,24 @@
     <li>Request data portability.</li>
     <li>Lodge a complaint with a data protection authority.</li>
   </ul>
-  <p>You can exercise many of these rights directly within the App, by editing or deleting individual cats/events, or by deleting your account (see our <a href="delete-account.html">account deletion page</a>) — uninstalling the App alone does not delete your cloud-stored cat and event data. For other requests, contact us at <a href="mailto:pixoro.apps@gmail.com">pixoro.apps@gmail.com</a>.</p>
-  <p><strong>For EU/EEA/UK users (GDPR):</strong> our legal bases for processing are performance of a contract (providing the App and its features, including cloud storage of your cat data), your consent (for optional features such as AI processing and inviting others to share a cat), and our legitimate interests (maintaining and improving the App).</p>
+  <p>Choices you can make directly in the App:</p>
+  <ul>
+    <li><strong>Sharing data with OpenAI for the AI assistant:</strong> turn it off anytime in <strong>Settings → Legal → "Share data with OpenAI"</strong>.</li>
+    <li><strong>Usage analytics:</strong> turn it off anytime in <strong>Settings → Legal → "Usage analytics"</strong> (Section 3.7).</li>
+    <li><strong>Your data:</strong> edit or delete individual cats/events, or delete your account in <strong>Settings → Manage account → Delete account</strong> (see our <a href="delete-account.html">account deletion page</a>) — uninstalling the App alone does not delete your cloud-stored cat and event data.</li>
+  </ul>
+  <p>For other requests, contact us at <a href="mailto:pixoro.apps@gmail.com">pixoro.apps@gmail.com</a>.</p>
+  <p><strong>For EU/EEA/UK users (GDPR):</strong> our legal bases for processing are performance of a contract (providing the App and its features, including your account, cloud storage of your cat data, and subscriptions), your consent (for sharing data with OpenAI for the AI assistant, and for inviting others to share a cat), and our legitimate interests (maintaining and improving the App through analytics and crash reports, reviewing AI replies you report to keep the assistant safe, and showing your cat's name correctly in Ukrainian).</p>
   <p><strong>For California users (CCPA/CPRA):</strong> we do not sell or share personal information as defined by California law. You have the right to know, delete, and correct personal information, and to not be discriminated against for exercising these rights.</p>
 
   <h2>10. Children's Privacy</h2>
   <p>The App is not directed to children under <strong>16</strong>, and we do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us and we will take appropriate steps to delete it.</p>
 
   <h2>11. International Data Transfers</h2>
-  <p>If you use the App outside the country where our service providers are located, information processed by the AI provider, app store, or our cloud backend (Supabase) may be transferred to and processed in other countries, including outside your own. Where required, we rely on appropriate safeguards for such transfers.</p>
+  <p>Our service providers operate in several countries. Some of them — including OpenAI, RevenueCat, Amplitude and Google — are based in the United States, so information processed by them, by the app stores, or by our cloud backend (Supabase) may be transferred to and processed in countries other than your own. Where required, we rely on appropriate safeguards for such transfers.</p>
 
   <h2>12. Changes to This Policy</h2>
-  <p>We may update this Privacy Policy from time to time. When we make material changes, we will update the "Last updated" date and, where appropriate, notify you within the App. Your continued use of the App after changes take effect constitutes acceptance of the updated Policy.</p>
+  <p>We may update this Privacy Policy from time to time. When we make material changes, we will update the "Last updated" date and, where appropriate, notify you within the App. If we start sharing new kinds of data with the AI provider, the App will ask for your permission again. Your continued use of the App after changes take effect constitutes acceptance of the updated Policy.</p>
 
   <h2>13. Contact Us</h2>
   <p>If you have questions about this Privacy Policy or your data, contact:</p>
