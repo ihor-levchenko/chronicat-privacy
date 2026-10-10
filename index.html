@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Chronicat — Cat Health Tracker &amp; AI Assistant</title>
+<meta name="description" content="A shared cat diary and health tracker: feeding, weight, mood, medications and vet visits for every cat in the house, plus an AI assistant that knows your cat's history.">
+<link rel="canonical" href="https://chronicat.app/">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#1c1510">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chronicat.app/">
+<meta property="og:title" content="Chronicat — Cat Health Tracker">
+<meta property="og:description" content="A shared cat diary and health tracker with an AI assistant that knows your cat.">
+<meta property="og:image" content="https://chronicat.app/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6816118706">
+<link rel="preload" href="assets/fonts/comfortaa_bold.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face { font-family:"Comfortaa"; font-weight:700; font-display:swap; src:url(assets/fonts/comfortaa_bold.woff2) format("woff2"); }
+  @font-face { font-family:"Mulish"; font-weight:400; font-display:swap; src:url(assets/fonts/mulish_regular.woff2) format("woff2"); }
+  @font-face { font-family:"Mulish"; font-weight:600; font-display:swap; src:url(assets/fonts/mulish_semibold.woff2) format("woff2"); }
+  @font-face { font-family:"Mulish"; font-weight:800; font-display:swap; src:url(assets/fonts/mulish_extrabold.woff2) format("woff2"); }
+
+  :root {
+    --ink:#2b2622; --muted:#6b625a; --accent:#dd6840; --line:#ece3d6; --bg:#fbf7f0; --card:#fff;
+    --night:#1c1510; --night-2:#261d17; --cream:#fbf6ec; --sub:#cbbba6; --kicker:#b89f7e;
+    --amber:#f2a04a; --ember:#c9562f; --gold:#f4b740; --hi:#ffd68a;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:"Mulish",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  img { display:block; max-width:100%; }
+  a { color:var(--accent); }
+  h1, h2, h3 { font-family:"Comfortaa","Mulish",sans-serif; font-weight:700; letter-spacing:-.01em; margin:0; }
+  .wrap { max-width:1120px; margin:0 auto; padding:0 24px; }
+
+  /* Top bar */
+  .top { position:absolute; inset:0 0 auto; z-index:5; }
+  .top .wrap { display:flex; align-items:center; justify-content:space-between; height:76px; }
+  .brand { display:flex; align-items:center; gap:10px; color:var(--cream); text-decoration:none; font-family:"Comfortaa",sans-serif; font-weight:700; font-size:1.15rem; }
+  .brand img { width:36px; height:36px; border-radius:9px; }
+  .lang { display:flex; background:rgba(251,246,236,.08); border:1px solid rgba(251,246,236,.14); border-radius:999px; padding:3px; }
+  .lang button { all:unset; cursor:pointer; color:var(--sub); font-weight:800; font-size:.8rem; letter-spacing:.04em; padding:6px 12px; border-radius:999px; transition:background .2s, color .2s; }
+  .lang button[aria-pressed="true"] { background:var(--cream); color:var(--night); }
+  .lang button:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+
+  /* Hero */
+  .hero { position:relative; overflow:hidden; color:var(--cream);
+    background:
+      radial-gradient(60% 55% at 72% 62%, rgba(201,86,47,.42), transparent 70%),
+      radial-gradient(42% 40% at 60% 40%, rgba(242,160,74,.30), transparent 70%),
+      linear-gradient(180deg, var(--night-2), #120d0a); }
+  .hero .wrap { display:grid; grid-template-columns:1.05fr 1fr; gap:24px; align-items:center; min-height:720px; padding-top:110px; padding-bottom:40px; }
+  .kicker { color:var(--kicker); font-weight:800; font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; margin:0 0 18px; }
+  .hero h1 { font-size:clamp(2.3rem, 5vw, 3.6rem); line-height:1.12; }
+  .acc { background:linear-gradient(180deg, var(--hi), #f09a40); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .hero .lede { color:var(--sub); font-size:1.15rem; max-width:31em; margin:22px 0 32px; }
+  .stores { display:flex; flex-wrap:wrap; gap:12px; }
+  .store { display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:var(--night); background:var(--cream);
+    padding:11px 20px 11px 16px; border-radius:14px; min-width:196px; transition:transform .15s, box-shadow .15s; box-shadow:0 6px 20px rgba(0,0,0,.25); }
+  .store:hover { transform:translateY(-2px); box-shadow:0 10px 28px rgba(0,0,0,.35); }
+  .store svg { width:26px; height:26px; flex:none; }
+  .store small { display:block; font-size:.72rem; font-weight:600; color:#6b625a; line-height:1.1; }
+  .store b { display:block; font-size:1.05rem; font-weight:800; line-height:1.25; }
+  .store.ghost { background:rgba(251,246,236,.08); color:var(--cream); box-shadow:none; border:1px solid rgba(251,246,236,.18); }
+  .store.ghost small { color:var(--sub); }
+  .fine { color:var(--kicker); font-size:.88rem; margin-top:18px; }
+
+  .phones { position:relative; height:620px; }
+  .phone { position:absolute; width:258px; aspect-ratio:660/1434; border-radius:40px; padding:7px; background:#0b0806;
+    box-shadow:0 0 0 1px rgba(255,255,255,.07) inset, 0 30px 60px rgba(0,0,0,.5); }
+  .phone img { width:100%; height:100%; border-radius:33px; object-fit:cover; }
+  .phones .p1 { left:2%; top:70px; transform:rotate(-8deg); opacity:.92; }
+  .phones .p3 { right:0; top:70px; transform:rotate(8deg); opacity:.92; box-shadow:0 0 0 2px rgba(233,184,90,.55), 0 30px 60px rgba(0,0,0,.5); }
+  .phones .p2 { left:50%; top:10px; transform:translateX(-50%); z-index:2; width:282px; }
+
+  /* Features */
+  section.features { padding:110px 0 40px; }
+  .intro { text-align:center; max-width:720px; margin:0 auto 70px; }
+  .intro h2 { font-size:clamp(1.8rem, 3.6vw, 2.5rem); line-height:1.2; }
+  .intro p { color:var(--muted); font-size:1.12rem; margin:16px 0 0; }
+  .feat { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; padding:46px 0; }
+  .feat:nth-of-type(even) .shot { order:2; }
+  .shot { position:relative; display:flex; justify-content:center; padding:36px 0; }
+  .shot::before { content:""; position:absolute; inset:0 8%; border-radius:40px; background:var(--tint, #f6e6d6); }
+  .shot .phone { position:relative; width:264px; box-shadow:0 24px 50px rgba(60,35,20,.22); }
+  .tag { display:inline-flex; align-items:center; gap:6px; font-weight:800; font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); margin-bottom:12px; }
+  .tag.plus { color:#a87411; }
+  .feat h3 { font-size:clamp(1.5rem, 2.8vw, 2rem); line-height:1.25; }
+  .feat p { color:var(--muted); font-size:1.08rem; margin:16px 0 0; max-width:30em; }
+  .feat ul { margin:16px 0 0; padding:0; list-style:none; color:var(--ink); }
+  .feat li { position:relative; padding-left:26px; margin:8px 0; }
+  .feat li::before { content:""; position:absolute; left:4px; top:.62em; width:9px; height:9px; border-radius:50%; background:var(--accent); opacity:.8; }
+
+  /* Strip of extra screens */
+  .strip { display:flex; gap:20px; justify-content:center; padding:20px 0 90px; }
+  .strip figure { margin:0; text-align:center; }
+  .strip .phone { position:relative; width:200px; border-radius:32px; padding:6px; box-shadow:0 18px 40px rgba(60,35,20,.18); }
+  .strip .phone img { border-radius:26px; }
+  .strip figcaption { color:var(--muted); font-weight:600; font-size:.95rem; margin-top:14px; }
+
+  /* Plus */
+  .plus-box { background:var(--night); color:var(--cream); border-radius:32px; padding:56px; display:grid; grid-template-columns:1.2fr 1fr; gap:40px; align-items:center;
+    background-image:radial-gradient(55% 80% at 90% 20%, rgba(244,183,64,.22), transparent 70%); }
+  .plus-box h2 { font-size:clamp(1.6rem, 3vw, 2.2rem); line-height:1.2; }
+  .plus-box p { color:var(--sub); margin:14px 0 0; }
+  .chip { display:inline-flex; align-items:center; gap:8px; color:#f3d79b; font-weight:800; font-size:.85rem; border:1px solid rgba(233,184,90,.5); border-radius:999px; padding:6px 14px; margin-bottom:18px; }
+  .chip svg { width:16px; height:16px; }
+  .tiers { display:grid; gap:12px; }
+  .tier { border:1px solid rgba(251,246,236,.14); border-radius:18px; padding:18px 20px; }
+  .tier.gold { border-color:rgba(233,184,90,.55); background:rgba(244,183,64,.06); }
+  .tier b { display:block; font-size:1.02rem; }
+  .tier span { color:var(--sub); font-size:.95rem; }
+
+  /* Closing */
+  .closing { text-align:center; padding:110px 0 100px; }
+  .closing img.icon { width:88px; height:88px; border-radius:20px; margin:0 auto 26px; box-shadow:0 14px 30px rgba(60,35,20,.2); }
+  .closing h2 { font-size:clamp(1.8rem, 3.6vw, 2.5rem); }
+  .closing p { color:var(--muted); font-size:1.1rem; margin:14px 0 32px; }
+  .closing .stores { justify-content:center; }
+  .closing .store { background:var(--night); color:var(--cream); }
+  .closing .store small { color:var(--sub); }
+
+  footer { border-top:1px solid var(--line); padding:34px 0 44px; color:var(--muted); font-size:.92rem; }
+  footer .wrap { display:flex; flex-wrap:wrap; gap:14px 28px; justify-content:space-between; }
+  footer nav { display:flex; flex-wrap:wrap; gap:8px 22px; }
+  footer a { color:var(--ink); text-decoration:none; font-weight:600; }
+  footer a:hover { color:var(--accent); }
+  footer .disclaimer { flex-basis:100%; font-size:.85rem; }
+
+  @media (max-width: 900px) {
+    .hero .wrap { grid-template-columns:1fr; min-height:0; padding-top:104px; text-align:center; }
+    .hero .lede { margin-left:auto; margin-right:auto; }
+    .stores { justify-content:center; }
+    .phones { height:470px; max-width:460px; width:100%; margin:0 auto; }
+    .phone { width:190px; border-radius:30px; padding:5px; }
+    .phone img { border-radius:25px; }
+    .phones .p2 { width:212px; }
+    .phones .p1 { left:0; top:56px; } .phones .p3 { top:56px; }
+    .feat { grid-template-columns:1fr; gap:24px; padding:34px 0; text-align:center; }
+    .feat:nth-of-type(even) .shot { order:0; }
+    .feat p, .feat ul { margin-left:auto; margin-right:auto; }
+    .feat ul { text-align:left; display:inline-block; }
+    .shot .phone { width:230px; }
+    .strip { display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; max-width:520px; }
+    .strip .phone { width:100%; border-radius:22px; padding:4px; }
+    .strip .phone img { border-radius:18px; }
+    .strip figcaption { font-size:.82rem; line-height:1.3; }
+    .plus-box { grid-template-columns:1fr; padding:36px 26px; }
+  }
+  @media (max-width: 420px) {
+    .phones { height:400px; }
+    .phone { width:160px; } .phones .p2 { width:180px; }
+    .phones .p1 { left:-10px; } .phones .p3 { right:-10px; }
+    .store { min-width:0; flex:1 1 180px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } .store { transition:none; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="assets/img/icon-256.png" alt="">Chronicat</a>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-set-lang="uk" aria-pressed="false">УКР</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="kicker" data-i18n="kicker">Cat health tracker · AI assistant</p>
+      <h1 data-i18n-html="h1"><span class="acc">Your cat’s</span> health journal</h1>
+      <p class="lede" data-i18n="lede">Feeding, weight, mood, medications and vet visits on one shared timeline — with an AI assistant that has actually read your cat’s history.</p>
+      <div class="stores">
+        <a class="store" href="https://apps.apple.com/app/id6816118706">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.87-.76-1.47.02-2.83.86-3.59 2.18-1.54 2.66-.39 6.6 1.1 8.76.73 1.06 1.6 2.24 2.73 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.4 1.2-2.47-.03-.01-2.3-.88-2.32-3.52zM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.64-1.05 1.67-.92 2.66.97.08 1.96-.49 2.56-1.21z"/></svg>
+          <span><small data-i18n="as-small">Download on the</small><b>App Store</b></span>
+        </a>
+        <a class="store ghost" href="https://play.google.com/store/apps/details?id=com.pixoroapps.pet">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34a853" d="M3.6 2.3 13.4 12l-9.8 9.7c-.35-.2-.6-.6-.6-1.1V3.4c0-.5.25-.9.6-1.1z"/><path fill="#fbbc04" d="m16.8 8.6 3.4 1.95c.95.55.95 1.9 0 2.45l-3.4 1.95L13.4 12z"/><path fill="#ea4335" d="M3.6 21.7 13.4 12l3.4 3.4-11.6 6.6c-.55.3-1.15.2-1.6-.3z"/><path fill="#4285f4" d="M3.6 2.3c.45-.5 1.05-.6 1.6-.3l11.6 6.6-3.4 3.4z"/></svg>
+          <span><small data-i18n="gp-small">Get it on</small><b>Google Play</b></span>
+        </a>
+      </div>
+      <p class="fine" data-i18n="fine">Free to start · 18 languages · iPhone, iPad &amp; Android</p>
+    </div>
+    <div class="phones" aria-hidden="true">
+      <div class="phone p1"><img data-shot="05-timeline" src="assets/img/en/05-timeline.webp" alt=""></div>
+      <div class="phone p3"><img data-shot="02-chat" src="assets/img/en/02-chat.webp" alt=""></div>
+      <div class="phone p2"><img data-shot="01-home" src="assets/img/en/01-home.webp" alt="" fetchpriority="high"></div>
+    </div>
+  </div>
+</section>
+
+<main>
+<section class="features">
+  <div class="wrap">
+    <div class="intro">
+      <h2 data-i18n="intro-h">You fed the cat. Your partner fed the cat. Now nobody’s sure.</h2>
+      <p data-i18n="intro-p">Chronicat keeps it all straight — for one cat or a whole household of them.</p>
+    </div>
+
+    <article class="feat">
+      <div class="shot" style="--tint:#e9eee4"><div class="phone"><img data-shot="02-chat" src="assets/img/en/02-chat.webp" alt="" loading="lazy" data-i18n-alt="alt-chat"></div></div>
+      <div>
+        <div class="tag plus" data-i18n="t-chat">Chronicat AI · Plus</div>
+        <h3 data-i18n="h-chat">An assistant that already knows your cat</h3>
+        <p data-i18n="p-chat">It reads what you’ve tracked — meals, the weight curve, Tuesday’s symptoms, vaccines and current meds — so you get an answer about your cat, not a generic article. It can log entries for you, too.</p>
+        <p data-i18n="p-chat2">Guidance, not a diagnosis. For anything urgent, call your vet.</p>
+      </div>
+    </article>
+
+    <article class="feat">
+      <div class="shot" style="--tint:#f6e3d5"><div class="phone"><img data-shot="05-timeline" src="assets/img/en/05-timeline.webp" alt="" loading="lazy" data-i18n-alt="alt-timeline"></div></div>
+      <div>
+        <div class="tag" data-i18n="t-timeline">Diary</div>
+        <h3 data-i18n="h-timeline">Every meal, dose and vet visit in one place</h3>
+        <p data-i18n="p-timeline">Feeding, water, litter box, grooming, play, mood and photos land on one timeline you can read as a list or a calendar. When was the last flea treatment? Search and you have the answer.</p>
+      </div>
+    </article>
+
+    <article class="feat">
+      <div class="shot" style="--tint:#f3e7d2"><div class="phone"><img data-shot="04-cats" src="assets/img/en/04-cats.webp" alt="" loading="lazy" data-i18n-alt="alt-cats"></div></div>
+      <div>
+        <div class="tag" data-i18n="t-cats">Shared</div>
+        <h3 data-i18n="h-cats">Care for your cat together</h3>
+        <p data-i18n="p-cats">Invite your partner, family or a cat-sitter with a simple code. Everyone logs to the same timeline, so you always know who fed the cat and when.</p>
+      </div>
+    </article>
+
+    <article class="feat">
+      <div class="shot" style="--tint:#ebe6f3"><div class="phone"><img data-shot="08-weight" src="assets/img/en/08-weight.webp" alt="" loading="lazy" data-i18n-alt="alt-weight"></div></div>
+      <div>
+        <div class="tag" data-i18n="t-weight">Health</div>
+        <h3 data-i18n="h-weight">Spot weight changes early</h3>
+        <p data-i18n="p-weight">Gradual weight loss is one of the earliest signs something is wrong — and nearly impossible to see by eye. Log the number and the chart does the rest. Symptoms, parasite treatments and vaccinations go into the same record.</p>
+      </div>
+    </article>
+
+    <article class="feat">
+      <div class="shot" style="--tint:#f6e3d5"><div class="phone"><img data-shot="06-course" src="assets/img/en/06-course.webp" alt="" loading="lazy" data-i18n-alt="alt-course"></div></div>
+      <div>
+        <div class="tag plus" data-i18n="t-course">Medications · Plus</div>
+        <h3 data-i18n="h-course">Every dose, right on time</h3>
+        <p data-i18n="p-course">Pills at 8. Dewormer next month. Booster in a year. Set a reminder once and Chronicat does the nagging.</p>
+      </div>
+    </article>
+
+    <article class="feat">
+      <div class="shot" style="--tint:#e9eee4"><div class="phone"><img data-shot="03-report" src="assets/img/en/03-report.webp" alt="" loading="lazy" data-i18n-alt="alt-report"></div></div>
+      <div>
+        <div class="tag plus" data-i18n="t-report">Vet report · Plus</div>
+        <h3 data-i18n="h-report">A ready-made report for your vet</h3>
+        <p data-i18n="p-report">Pick a date range, choose what to include and export a PDF. Instead of “I think he threw up a few times last month”, you walk in with dates.</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="wrap strip" aria-hidden="true">
+    <figure><div class="phone"><img data-shot="07-mood" src="assets/img/en/07-mood.webp" alt="" loading="lazy"></div><figcaption data-i18n="c-mood">10 moods</figcaption></figure>
+    <figure><div class="phone"><img data-shot="01-home" src="assets/img/en/01-home.webp" alt="" loading="lazy"></div><figcaption data-i18n="c-home">Today at a glance</figcaption></figure>
+    <figure><div class="phone"><img data-shot="04-invite" src="assets/img/en/04-invite.webp" alt="" loading="lazy"></div><figcaption data-i18n="c-invite">Invite with a code</figcaption></figure>
+  </div>
+
+  <div class="wrap">
+    <div class="plus-box">
+      <div>
+        <span class="chip"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 7l4.5 4L12 4l4.5 7L21 7l-2 11H5z"/></svg>Chronicat Plus</span>
+        <h2 data-i18n="plus-h">Free to start. Plus when you need more.</h2>
+        <p data-i18n="plus-p">Track one cat’s meals, weight, play and mood — and share it with family — for free. Chronicat Plus unlocks Chronicat AI, vet reports, every event type and as many cats as you have. Monthly or yearly, with a 3-day free trial; cancel anytime in your store account.</p>
+      </div>
+      <div class="tiers">
+        <div class="tier"><b data-i18n="free-b">Free</b><span data-i18n="free-s">1 cat · food, weight, play and mood · shared with family</span></div>
+        <div class="tier gold"><b>Chronicat Plus</b><span data-i18n="plus-s">Chronicat AI · vet PDF reports · unlimited cats · all 13 event types — meds, vaccines, vet visits and more</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap">
+    <img class="icon" src="assets/img/icon-256.png" alt="">
+    <h2 data-i18n="close-h">Start your cat’s diary today</h2>
+    <p data-i18n="close-p">Chronicat writes the details down — and remembers them when you ask.</p>
+    <div class="stores">
+      <a class="store" href="https://apps.apple.com/app/id6816118706">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.87-.76-1.47.02-2.83.86-3.59 2.18-1.54 2.66-.39 6.6 1.1 8.76.73 1.06 1.6 2.24 2.73 2.2 1.1-.04 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.4 1.2-2.47-.03-.01-2.3-.88-2.32-3.52zM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.64-1.05 1.67-.92 2.66.97.08 1.96-.49 2.56-1.21z"/></svg>
+        <span><small data-i18n="as-small">Download on the</small><b>App Store</b></span>
+      </a>
+      <a class="store" href="https://play.google.com/store/apps/details?id=com.pixoroapps.pet">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34a853" d="M3.6 2.3 13.4 12l-9.8 9.7c-.35-.2-.6-.6-.6-1.1V3.4c0-.5.25-.9.6-1.1z"/><path fill="#fbbc04" d="m16.8 8.6 3.4 1.95c.95.55.95 1.9 0 2.45l-3.4 1.95L13.4 12z"/><path fill="#ea4335" d="M3.6 21.7 13.4 12l3.4 3.4-11.6 6.6c-.55.3-1.15.2-1.6-.3z"/><path fill="#4285f4" d="M3.6 2.3c.45-.5 1.05-.6 1.6-.3l11.6 6.6-3.4 3.4z"/></svg>
+        <span><small data-i18n="gp-small">Get it on</small><b>Google Play</b></span>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Pixoro Apps</span>
+    <nav>
+      <a href="privacy.html" data-i18n="f-privacy">Privacy Policy</a>
+      <a href="terms.html" data-i18n="f-terms">Terms of Use</a>
+      <a href="delete-account.html" data-i18n="f-delete">Delete account</a>
+      <a href="mailto:pixoro.apps@gmail.com" data-i18n="f-contact">Contact</a>
+    </nav>
+    <p class="disclaimer" data-i18n="f-disc">Chronicat AI replies are generated by OpenAI. Chronicat is not a substitute for veterinary care.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var uk = {
+    "kicker": "Трекер здоров’я кота · АІ-асистент",
+    "h1": "Журнал здоров’я <span class=\"acc\">твого кота</span>",
+    "lede": "Годування, вага, настрій, ліки й візити до ветеринара — в одній спільній стрічці. І АІ-асистент, який справді знає історію твого кота.",
+    "as-small": "Завантажити в",
+    "gp-small": "Доступно в",
+    "fine": "Почати можна безкоштовно · 18 мов · iPhone, iPad і Android",
+    "intro-h": "Ти погодував кота. Партнер теж погодував кота. Тепер ніхто не певен.",
+    "intro-p": "Chronicat тримає все під контролем — для одного кота чи цілої хвостатої родини.",
+    "t-chat": "Chronicat AI · Plus",
+    "h-chat": "Асистент, який уже знає твого кота",
+    "p-chat": "Він читає те, що ти записав: їжу, графік ваги, симптоми з вівторка, щеплення й ліки, які кіт приймає зараз. Тож відповідь — саме про твого кота, а не загальна стаття. А ще він сам додає записи в журнал.",
+    "p-chat2": "Це порада, а не діагноз. У термінових випадках телефонуй ветеринару.",
+    "t-timeline": "Щоденник",
+    "h-timeline": "Їжа, ліки й візити до ветеринара в одному місці",
+    "p-timeline": "Годування, вода, лоток, грумінг, ігри, настрій і фото — в одній стрічці, яку можна дивитися списком або в календарі. Коли востаннє була обробка від бліх? Пошукай — і відповідь перед тобою.",
+    "t-cats": "Разом",
+    "h-cats": "Турбота про кота — разом",
+    "p-cats": "Запроси партнера, рідних чи доглядальника за простим кодом. Усі записують в одну стрічку, тож завжди видно, хто й коли погодував кота.",
+    "t-weight": "Здоров’я",
+    "h-weight": "Помічай зміни ваги вчасно",
+    "p-weight": "Поступове схуднення — одна з перших ознак, що з котом щось не так, і на око його майже не видно. Запиши цифру — графік зробить решту. Симптоми, обробки від паразитів і щеплення — в тій самій картці.",
+    "t-course": "Ліки · Plus",
+    "h-course": "Не пропусти жодного прийому ліків",
+    "p-course": "Таблетка о 8-й. Дегельмінтизація наступного місяця. Ревакцинація через рік. Налаштуй нагадування один раз — Chronicat нагадає сам.",
+    "t-report": "Звіт для ветеринара · Plus",
+    "h-report": "Готовий звіт для ветеринара",
+    "p-report": "Обери період, познач, що включити, і збережи PDF. Замість «здається, його кілька разів нудило минулого місяця» — точні дати.",
+    "c-mood": "10 настроїв",
+    "c-home": "Увесь день на одному екрані",
+    "c-invite": "Запрошення за кодом",
+    "plus-h": "Почни безкоштовно. Plus — коли треба більше.",
+    "plus-p": "Їжа, вага, ігри й настрій одного кота — і спільний доступ для рідних — безкоштовно. Chronicat Plus відкриває Chronicat AI, звіти для ветеринара, усі типи подій і скільки завгодно котів. Щомісяця або щороку, з безкоштовним 3-денним пробним періодом; скасувати можна будь-коли в акаунті магазину.",
+    "free-b": "Безкоштовно",
+    "free-s": "1 кіт · їжа, вага, ігри й настрій · спільний доступ для рідних",
+    "plus-s": "Chronicat AI · PDF-звіти для ветеринара · необмежено котів · усі 13 типів подій — ліки, щеплення, візити до ветеринара та інше",
+    "close-h": "Почни щоденник свого кота вже сьогодні",
+    "close-p": "Chronicat записує деталі — і пам’ятає їх, коли ти питаєш.",
+    "f-privacy": "Політика конфіденційності",
+    "f-terms": "Умови використання",
+    "f-delete": "Видалити акаунт",
+    "f-contact": "Контакти",
+    "f-disc": "Відповіді Chronicat AI генерує OpenAI. Chronicat не замінює ветеринарну допомогу.",
+    "alt-chat": "Чат Chronicat AI",
+    "alt-timeline": "Стрічка подій кота",
+    "alt-cats": "Список котів зі спільним доступом",
+    "alt-weight": "Запис ваги з графіком",
+    "alt-course": "Курс ліків із нагадуваннями",
+    "alt-report": "PDF-звіт для ветеринара",
+    "title": "Chronicat — трекер здоров’я кота й АІ-асистент"
+  };
+  var en = { title: document.title };
+  var keys = ["data-i18n", "data-i18n-html", "data-i18n-alt"];
+  // Remember the English text from the markup so switching back needs no second dictionary.
+  keys.forEach(function (attr) {
+    document.querySelectorAll("[" + attr + "]").forEach(function (el) {
+      var k = el.getAttribute(attr);
+      en[k] = attr === "data-i18n-html" ? el.innerHTML : attr === "data-i18n-alt" ? el.alt : el.textContent;
+    });
+  });
+
+  function apply(lang) {
+    var d = lang === "uk" ? uk : en;
+    document.documentElement.lang = lang;
+    document.title = d.title;
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { el.textContent = d[el.getAttribute("data-i18n")]; });
+    document.querySelectorAll("[data-i18n-html]").forEach(function (el) { el.innerHTML = d[el.getAttribute("data-i18n-html")]; });
+    document.querySelectorAll("[data-i18n-alt]").forEach(function (el) { el.alt = d[el.getAttribute("data-i18n-alt")]; });
+    document.querySelectorAll("img[data-shot]").forEach(function (el) { el.src = "assets/img/" + lang + "/" + el.getAttribute("data-shot") + ".webp"; });
+    document.querySelectorAll("[data-set-lang]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-set-lang") === lang)); });
+  }
+
+  var saved = null;
+  try { saved = localStorage.getItem("lang"); } catch (e) {}
+  var param = new URLSearchParams(location.search).get("lang");
+  var lang = param || saved || ((navigator.language || "").toLowerCase().indexOf("uk") === 0 ? "uk" : "en");
+  if (lang !== "uk") lang = "en";
+  if (lang === "uk") apply("uk");
+
+  document.querySelectorAll("[data-set-lang]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.getAttribute("data-set-lang");
+      try { localStorage.setItem("lang", l); } catch (e) {}
+      apply(l);
+    });
+  });
+})();
+</script>
+</body>
+</html>
